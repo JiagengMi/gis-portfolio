@@ -1,0 +1,47 @@
+# ArcGIS locks, temporary files, and caches
+*.lock
+*.sr.lock
+*.tmp
+*.cache
+*.aux.xml
+*.ovr
+*.rrd
+*.pyramid
+Index/
+
+# File and mobile geodatabases
+*.gdb/
+*.geodatabase
+
+# Large generated ArcGIS packages and caches
+*.ppkx
+*.mpkx
+*.vtpk
+*.tpk
+*.tpkx
+*.slpk
+*.tiles/
+
+# Credentials and local configuration
+.env
+.env.*
+*.token
+credentials*
+secrets*
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# OS and editor files
+Thumbs.db
+.DS_Store
+.idea/
+.vscode/
+
+# Local exports that are not curated portfolio deliverables
+exports/*
+!exports/.gitkeep
+
