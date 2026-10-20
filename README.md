@@ -4,7 +4,7 @@ Independent geospatial projects using public or synthetic data. No employer or c
 
 ## Featured project: 3D Vegetation Clearance Screening
 
-**[Launch the application](https://experience.arcgis.com/experience/af7532559e924046aec35b94c8e090f1/)** · **[Web Scene](https://www.arcgis.com/apps/sceneviewer/index.html?webscene=ec1b41378db342698ce06f8b229e1836)** · **[Case study](projects/01-vegetation-corridor-inspection/)**
+**[Launch the application](https://experience.arcgis.com/experience/af7532559e924046aec35b94c8e090f1/)** · **[Web Scene](https://ucalgary.maps.arcgis.com/home/webscene/viewer.html?webscene=ec1b41378db342698ce06f8b229e1836)** · **[Case study](projects/01-vegetation-corridor-inspection/)**
 
 A Calgary-based simulation with **241 closed canopy volumes** and **73 conductor spans**. ArcPy conductor modeling, Near 3D surface distances, and Inside 3D containment detection support illustrative screening classes, presented in ArcGIS Online and Experience Builder.
 
