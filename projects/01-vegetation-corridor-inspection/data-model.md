@@ -1,68 +1,38 @@
-# Data model
+# Implemented data model
 
-Use English field names in the geodatabase and human-readable aliases in ArcGIS Online. Final types may be adjusted after testing the source data.
+English field names are retained in the GDB; readable English aliases are used in pop-ups. Working coordinates are EPSG:3776 (ArcGIS may report equivalent 102187), metres.
 
-## 1. Corridors (polyline)
+| Dataset | Geometry | Role / fields |
+|---|---|---|
+| vegetation_canopy | 2D polygon | `veg_id`, `ground_z_m`, `tree_h_m`, `crown_base_m`, `crown_base_z`, `crown_depth_m`, footprint/height source fields |
+| poles | 2D point | `pole_id`, `ground_z_m`, `attach_h_m`; actual field `pole_z_m=14` represents synthetic above-ground pole height |
+| spans | 2D polyline | `span_id`, `from_pole_id`, `to_pole_id`, `sag_m`, `sample_step_m` |
+| vegetation_3d_closed | Closed multipatch | Enclosed canopy geometry, restored business attributes, `IsClosed` |
+| conductors_3d | Z-enabled polyline | 73 original nominal 0.5 m curves; stable span IDs |
+| conductors_3d_025m | Z-enabled polyline | 73 regenerated 0.25 m curves; endpoints/midpoints checked |
+| vegetation_clearance | Multipatch | 0.5 m analysis baseline; raw Near and final clearance fields |
+| vegetation_clearance_025m | Multipatch | Final 0.25 m analysis and `risk_class` |
+| conductor_canopy_inside_025m | Nonspatial table | `Target_ID` = fine conductor OBJECTID; `Contain_ID` = final canopy OBJECTID; `Status` |
+| clearance_risk_counts | Nonspatial table | Frequency by `risk_class` |
 
-Synthetic linear infrastructure used only to demonstrate the workflow.
+The coarse relationship table has the same logical role; its actual name/location must be checked in the current project. A table lookup initially failed because the assumed path did not match its saved location.
 
-| Field | Type | Required | Domain / example |
-|---|---|---:|---|
-| corridor_id | Text (20) | Yes | COR-001 |
-| corridor_name | Text (80) | Yes | Demonstration Corridor A |
-| asset_type | Text (30) | Yes | Distribution / Transmission / Other |
-| priority | Short integer | Yes | 1 / 2 / 3 |
-| active | Short integer | Yes | 1 = Yes, 0 = No |
-| data_origin | Text (20) | Yes | Synthetic |
-| notes | Text (255) | No | Free text |
+## Final result fields
 
-## 2. Inspection Zones (polygon)
+| Field | Type | Meaning |
+|---|---|---|
+| veg_id | Text | Stable canopy identifier |
+| NEAR_FID | Integer | Nearest conductor OBJECTID in the exact Near 3D input |
+| NEAR_DIST3 | Double | Raw 3D surface distance; not independently a solid clearance |
+| clearance_m | Double | Internal relationship → 0; otherwise valid NEAR_DIST3 |
+| nearest_span_id | Text | Closest span or deterministic representative of tied internal spans |
+| inside_span_ids | Text | All internal-related span IDs, separated by semicolons |
+| inside_count | Integer | Number of distinct internal-related spans |
+| distance_method | Text | Inside3D / Near3D / Unknown |
+| risk_class | Text | High / Medium / Low / Unknown |
 
-Work areas used for assignment and progress reporting.
+Never join a regenerated table using assumed row order. After Enclose Multipatch, restore attributes from the **immediate input** via `OID_ORIG`, not a different source's OBJECTID. Recompute Z_MIN/Z_MAX on the enclosed geometry rather than copying old bounds.
 
-| Field | Type | Required | Domain / example |
-|---|---|---:|---|
-| zone_id | Text (20) | Yes | ZONE-001 |
-| zone_name | Text (80) | Yes | Northwest Demo Zone |
-| corridor_id | Text (20) | Yes | COR-001 |
-| assigned_to | Text (80) | No | Demo Inspector |
-| target_date | Date | No | Date only |
-| zone_status | Text (20) | Yes | Not Started / In Progress / Complete |
-| data_origin | Text (20) | Yes | Synthetic |
+## Context and deferred schema
 
-## 3. Vegetation Observations (point)
-
-Operational inspection layer. Enable attachments for demonstration photos.
-
-| Field | Type | Required | Domain / example |
-|---|---|---:|---|
-| observation_id | Text (30) | Yes | OBS-0001 |
-| corridor_id | Text (20) | Yes | COR-001 |
-| zone_id | Text (20) | Yes | ZONE-001 |
-| source_tree_id | Text (50) | No | Calgary Open Data `wam_id` (unique in downloaded sample) |
-| vegetation_type | Text (30) | Yes | Tree / Shrub / Other |
-| proximity_class | Text (20) | Yes | Near / Moderate / Clear |
-| risk_level | Text (10) | Yes | Low / Medium / High |
-| workflow_status | Text (20) | Yes | New / Inspected / Action Needed / Closed |
-| observed_date | Date | Yes | Inspection date |
-| inspector_name | Text (80) | Yes | Portfolio test user |
-| recommended_action | Text (30) | No | Monitor / Review / Trim / Remove / None |
-| qc_status | Text (20) | Yes | Pending / Passed / Rework |
-| qc_notes | Text (500) | No | Reviewer comments |
-| data_origin | Text (20) | Yes | Open Data / Synthetic / Field Test |
-
-## Form behaviour
-
-- Default `workflow_status` to `New` and `qc_status` to `Pending`.
-- Require risk level, vegetation type, observation date, and location.
-- Show `recommended_action` when risk is Medium or High.
-- Show `qc_notes` when QC status is Rework.
-- Keep source IDs visible to analysts but hide nonessential technical fields from the public popup.
-
-## Sharing model
-
-- Source hosted feature layers: private or organization-only; editing enabled only where required.
-- Internal web map: organization-only.
-- Public hosted view: read-only, limited fields, no unnecessary personal names.
-- Dashboard and Experience Builder: public only after dependency and anonymous-access tests pass.
-
+17 corridors, 17 inspection zones, a 9 m corridor buffer, and an empty vegetation observations layer were present in the initial audit. Their existence does not prove that every zone parameter or geometry was verified. The public release does not implement observation forms, attachments, QC status transitions, mobile collection, or a dashboard.

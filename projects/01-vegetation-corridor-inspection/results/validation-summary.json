@@ -1,0 +1,26 @@
+{
+  "recorded_on": "2026-10-20",
+  "provenance": "Operator-run Pro console/table screenshots; no closeout geoprocessing rerun",
+  "canopies": 241,
+  "spans": 73,
+  "final_sampling_interval_m": 0.25,
+  "inside_relationship_rows": 21,
+  "distinct_inside_canopies": 16,
+  "zero_clearance_canopies": 52,
+  "screening_counts": {"High": 67, "Medium": 62, "Low": 112, "Unknown": 0},
+  "thresholds_m": {"High": "0 <= d < 2", "Medium": "2 <= d < 4", "Low": "d >= 4"},
+  "sampling_comparison": {
+    "coarse_m": 0.5,
+    "fine_m": 0.25,
+    "maximum_absolute_difference_m": 0.000134,
+    "mean_absolute_difference_m_rounded": 0.000021,
+    "class_changes": 0,
+    "inside_canopy_sets_equal": true,
+    "zero_clearance_sets_equal": true
+  },
+  "synthetic_ground_z_m": 1000,
+  "web_display_offset_m": -1000,
+  "engineering_accuracy_claimed": false,
+  "application_url": "https://experience.arcgis.com/experience/af7532559e924046aec35b94c8e090f1/",
+  "web_scene_id": "ec1b41378db342698ce06f8b229e1836"
+}

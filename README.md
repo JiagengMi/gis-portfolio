@@ -1,31 +1,32 @@
 # GIS Portfolio — Jora Mi
 
-A portfolio of practical geospatial projects focused on Web GIS, spatial data quality, environmental applications, field workflows, and decision support.
+Independent geospatial projects using public or synthetic data. No employer or client data is included.
 
-The projects combine ArcGIS Pro, ArcGIS Online, Python, and public geospatial data. Each case study documents the problem, data model, implementation, testing, limitations, and lessons learned. Portfolio projects are clearly distinguished from professional client work.
+## Featured project: 3D Vegetation Clearance Screening
+
+**[Launch the application](https://experience.arcgis.com/experience/af7532559e924046aec35b94c8e090f1/)** · **[Web Scene](https://www.arcgis.com/apps/sceneviewer/index.html?webscene=ec1b41378db342698ce06f8b229e1836)** · **[Case study](projects/01-vegetation-corridor-inspection/)**
+
+A Calgary-based simulation with **241 closed canopy volumes** and **73 conductor spans**. ArcPy conductor modeling, Near 3D surface distances, and Inside 3D containment detection support illustrative screening classes, presented in ArcGIS Online and Experience Builder.
+
+| Class | Clearance rule | Canopies |
+|---|---|---:|
+| High | <2 m | 67 |
+| Medium | ≥2 and <4 m | 62 |
+| Low | ≥4 m | 112 |
+
+**52 zero-clearance canopies are included in High.** Refining sampling from 0.5 m to 0.25 m changed clearance by at most **0.000134 m**, with no class changes. This measures numerical sensitivity, not real-world accuracy.
+
+**Stack:** ArcGIS Pro 3.3, ArcPy/Python, file geodatabases, ArcGIS Online, Experience Builder.
 
 ## Projects
 
-| # | Project | Focus | Status |
-|---|---|---|---|
-| 01 | [Vegetation Corridor Inspection System](projects/01-vegetation-corridor-inspection/) | ArcGIS Online, hosted layers, mobile inspection, QC, Dashboard, Experience Builder | In progress |
-| 02 | Wildfire Smoke & PM2.5 Monitoring Platform | Python/ML outputs, temporal Web GIS, dashboard | Planned |
-| 03 | Stormwater Asset & Flood-Risk Inspection | Municipal assets, field collection, hydrology | Planned |
-| 04 | Urban Planning Site-Selection Portal | Multi-criteria analysis, planning, decision support | Planned |
+| # | Project | Status |
+|---|---|---|
+| 01 | [3D Vegetation Clearance Screening](projects/01-vegetation-corridor-inspection/) | Core analysis and public Web MVP completed |
+| 02 | [Wildfire Smoke & PM2.5 Monitoring](projects/02-wildfire-pm25-dashboard/) | Planned |
+| 03 | [Stormwater Asset & Flood-Risk Inspection](projects/03-stormwater-inspection/) | Planned |
+| 04 | [Urban Planning Site Selection](projects/04-planning-site-selection/) | Planned |
 
-## Portfolio principles
+The simulation is not an operational utility system or electrical compliance assessment. Heights, ground reference, infrastructure, and thresholds are synthetic. Mobile inspection, QC workflows, and dashboards remain future extensions.
 
-- Public or synthetic data only; no employer or client data.
-- Every synthetic layer and simulated operational record is labelled as such.
-- Claims and metrics are added only after they are implemented and tested.
-- Public ArcGIS applications use read-only views unless editing is intentionally required.
-- Each completed project includes a short demo, architecture overview, evaluation results, and postmortem.
-
-## Planned website
-
-The `docs/` directory is reserved for a GitHub Pages portfolio site. It will be published after the first case study reaches a demonstrable MVP.
-
-## About
-
-Jora Mi is a Calgary-based geospatial professional with experience in spatial-data production and quality control, GIS analysis, cartography, imagery interpretation, Python automation, and urban-planning applications.
-
+Local ArcGIS projects, GDBs, caches, and credentials are excluded from Git. Cloning this repository does not recreate the working geodatabase. The `docs/` website remains a future extension; the live ArcGIS application is the current demonstration entry.

@@ -1,0 +1,23 @@
+{
+  "checked_on": "2026-10-20",
+  "method": "Anonymous ArcGIS REST GET requests without credentials",
+  "web_scene_id": "ec1b41378db342698ce06f8b229e1836",
+  "web_scene_access": "public",
+  "description_present": true,
+  "terms_of_use_present": true,
+  "application_id": "af7532559e924046aec35b94c8e090f1",
+  "application_type": "Web Experience",
+  "application_access": "public",
+  "final_visible_canopy_count": 241,
+  "final_visible_conductor_count": 73,
+  "hosted_screening_counts": {"High": 67, "Medium": 62, "Low": 112},
+  "hosted_zero_clearance_count": 52,
+  "conductor_sampling_min_m": 0.25,
+  "conductor_sampling_max_m": 0.25,
+  "anonymous_conductor_capabilities": "Query",
+  "final_layer_offsets_m": {"canopies": -1000, "conductors": -1000},
+  "old_layers_hidden": true,
+  "browser_visual_audit_performed": false,
+  "mobile_audit_performed": false,
+  "all_dependency_editing_permissions_audited": false
+}

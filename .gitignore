@@ -1,4 +1,6 @@
 # ArcGIS locks, temporary files, and caches
+# Local working ArcGIS projects/data are excluded from the public repository.
+projects/01-vegetation-corridor-inspection/arcgis/
 *.lock
 *.sr.lock
 *.tmp

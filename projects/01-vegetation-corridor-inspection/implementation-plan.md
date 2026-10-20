@@ -1,119 +1,28 @@
-# Two-week implementation plan
+# Implemented workflow and release checklist
 
-The schedule is task-based rather than calendar-bound. Stop after each checkpoint and save a local backup.
+This replaces the early two-week mobile-inspection plan. The delivered scope is 3D simulation, clearance analysis, and public presentation.
 
-## Week 1 — MVP
+1. Acquire and profile the Calgary public-tree sample; retain source files separately from digitized canopies.
+2. Prepare projected canopy polygons, poles, corridors, and straight two-endpoint spans. Match span endpoints to unique poles within 0.1 m; report ambiguity/missing matches rather than picking a distant pole.
+3. Populate synthetic heights once; derive base Z and crown depth. Configure Base Height extrusion, convert to multipatch, and test closure. Enclose outputs if needed; restore attributes with OID_ORIG and recalculate Z bounds.
+4. Generate parabolic Z polylines, preserving endpoint/midpoint samples. Test one span before generating all 73.
+5. Validate Near 3D and Inside 3D against a closed cube: side, above, diagonal, crossing, and fully contained lines.
+6. Analyze a canopy copy. Near 3D uses canopy inputs and conductor near-features; Inside 3D uses conductors as targets and canopies as containers, with complex output enabled.
+7. Preserve raw distances; write corrected solid clearances and related stable span IDs. Use exact input OBJECTIDs for relationships.
+8. Regenerate conductors at 0.25 m; rerun both tools against equivalent canopy geometry. Compare by veg_id. Classify unrounded distances with the documented illustrative rules.
+9. Publish result multipatches as a scene layer with associated feature layer; publish the fine conductors as a feature layer. In Pro 3.3 the operator used Map for the standalone line publishing path. Use span_id as display field and enable unique numeric layer IDs. Analyzer checks must pass.
+10. Wait for scene-cache completion before adding hosted scene layers. Add results to the **existing** Web Scene, hide/remove obsolete layers from its presentation, set Light Gray Canvas and no real terrain, then apply −1000 m display offsets to both model layers in Scene Viewer.
+11. Configure English names/pop-ups, initial viewpoint/slides, source/disclosure text, and public dependency sharing. Save the existing Web Scene rather than creating an unintended replacement item.
+12. Update static Experience Builder statistics, status, method, and limitations; save and republish the existing app. Restore/update Web Scene metadata independently if necessary.
 
-### Day 1: Scope and workspace
+## After every release
 
-- Confirm the project statement and portfolio disclosure.
-- Create an ArcGIS Pro project and file geodatabase.
-- Create folders for source data, processed data, exports, screenshots, and documentation.
-- Record the ArcGIS Online username/organization used for publishing, but never store credentials.
+- Open the existing application URL in an incognito window; no login should be required.
+- Verify scene/feature dependencies, cache readiness, class colors, heights, both pop-ups, and Home/default view.
+- Check static figures against the frequency table, including zero-clearance cases as a subset of High.
+- Check both Web Scene and app metadata; ensure no stale “Not yet calculated” text remains.
+- Verify public service permissions are query-only where intended. A pop-up field marked editable is not proof of service editing capability.
+- Preserve the existing item IDs and public entry URL. New layer IDs may require reconfiguring app widgets if those widgets directly reference old layer sources.
+- Do not overwrite analysis geometry to achieve presentation offsets.
 
-Checkpoint: empty ArcGIS Pro project and documented folder structure.
-
-### Day 2: Acquire and inspect open data
-
-- Download a manageable subset of Calgary Public Trees.
-- Record source URL, access date, licence, attribution, spatial reference, and relevant fields.
-- Inspect geometry, null values, duplicates, and identifier stability.
-- Select a small study area; do not publish the entire city inventory unless justified.
-
-Checkpoint: source data register and a clean study-area tree layer.
-
-### Day 3: Create synthetic operational data
-
-- Draw two or three demonstration corridors in the study area.
-- Buffer or otherwise delineate a small inspection area.
-- Create inspection zones.
-- Select or copy a subset of nearby trees into the observation workflow.
-- Populate `data_origin` so open and synthetic records cannot be confused.
-
-Checkpoint: corridors, zones, and observations are visually coherent and explicitly labelled.
-
-### Day 4: Build and validate the geodatabase
-
-- Create fields, aliases, coded-value domains, and defaults.
-- Enable attachments on the observation layer.
-- Check coordinate system, geometry, required identifiers, and domain compliance.
-- Create a simple data-quality checklist and record the results.
-
-Checkpoint: publishable geodatabase with no duplicate project IDs or invalid geometry.
-
-### Day 5: Publish the source layers
-
-- Publish corridors, zones, and observations as hosted feature layers.
-- Complete item title, summary, description, tags, attribution, and limitations.
-- Test query and editing behaviour in Map Viewer.
-- Export a local backup after the first successful publish.
-
-Checkpoint: hosted source layers work in ArcGIS Online.
-
-### Day 6: Configure the internal web map
-
-- Apply clear, colour-blind-conscious symbology.
-- Configure scale visibility, labels, field aliases, and popups.
-- Configure the observation form with required fields and conditional visibility.
-- Test at least five valid records and three invalid or incomplete cases.
-
-Checkpoint: the form supports a complete inspection record and catches intended errors.
-
-### Day 7: Mobile workflow
-
-- Open the map in Field Maps or connect a Survey123 form.
-- Test creating a point, editing a status, and adding an attachment.
-- If safe and convenient, collect two or three clearly labelled field-test records; otherwise use synthetic test points.
-- Document what worked and what required adjustment.
-
-Checkpoint: one end-to-end record appears correctly in the hosted layer.
-
-## Week 2 — Public product and interview pack
-
-### Day 8: QC workflow
-
-- Configure QC status, reviewer notes, and rework behaviour.
-- Create filters for Pending, Passed, and Rework.
-- Test the transition from New to Inspected to Closed.
-
-### Day 9: Safe public view
-
-- Create a read-only hosted feature layer view.
-- Remove or hide unnecessary personal and editing fields.
-- Disable editing and verify public users cannot change records.
-- Create a separate public web map from the view.
-
-### Day 10: Dashboard
-
-- Add indicators for total observations, high risk, pending QC, and closed records.
-- Add category charts for risk and workflow status.
-- Add selectors for zone, status, and risk.
-- Verify that filters update both map and indicators.
-
-### Day 11: Experience Builder
-
-- Build Overview, Interactive Map, Dashboard, Workflow, Data & Limitations, and About sections.
-- Add the portfolio disclosure and data attribution prominently.
-- Design desktop and mobile layouts.
-
-### Day 12: Functional and access testing
-
-- Test every public URL in an incognito window.
-- Check all layer dependencies and sharing levels.
-- Test forms, popups, filters, mobile layout, and read-only restrictions.
-- Record results in a test table rather than claiming unmeasured performance.
-
-### Day 13: Interview pack
-
-- Create a one-page case study.
-- Create a simple system architecture graphic.
-- Record a two-minute walkthrough.
-- Write a postmortem covering trade-offs, limitations, and next improvements.
-
-### Day 14: Release
-
-- Save local exports and screenshots.
-- Publish the case study and demo link.
-- Verify attribution and links one final time.
-- Only now draft factual CV bullets based on the completed implementation and measured test results.
-
+No automatic publishing, geoprocessing rerun, or ArcGIS workspace backup is part of documentation closeout.
